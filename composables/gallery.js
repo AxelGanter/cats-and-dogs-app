@@ -16,8 +16,8 @@ export function generateGallery() {
     const randomDogs = getUniqueRandomNumbers(countDogs, 10000)
     const randomCats = getUniqueRandomNumbers(countCats, 10000, randomDogs)
     
-    const pathToCatImages = '/PetImages/Cat/'
-    const pathToDogImages = '/PetImages/Dog/'
+    const pathToCatImages = 'https://cdn.axelganter.de/PetImages/Cat/'
+    const pathToDogImages = 'https://cdn.axelganter.de/PetImages/Dog/'
     
     const catPets = randomCats.map(num => ({
       type: 'cat',
