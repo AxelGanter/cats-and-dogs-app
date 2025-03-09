@@ -25,8 +25,8 @@ function getUniqueRandomNumbers(count, max) {
 function generateGallery() {
   const countDogs = 1
   const countCats = 15
-  const randomDogs = getUniqueRandomNumbers(countDogs, 100)
-  const randomCats = getUniqueRandomNumbers(countCats, 100)
+  const randomDogs = getUniqueRandomNumbers(countDogs, 10000)
+  const randomCats = getUniqueRandomNumbers(countCats, 10000)
   const pathToCatImages = '/PetImages/Cat/'
   const pathToDogImages = '/PetImages/Dog/'
   const catImages = randomCats.map(num => `${pathToCatImages}${num}.jpg`)
@@ -52,6 +52,7 @@ watch(dogCounter, newVal => {
 })
 
 function handleClick(img) {
+    console.log(img)
   if (img.includes('/Dog/')) {
     dogCounter.value++
     refreshGallery()
