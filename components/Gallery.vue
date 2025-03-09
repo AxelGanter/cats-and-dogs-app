@@ -43,14 +43,14 @@
       id: num,
       url: `${pathToCatImages}${num}.jpg`,
       preview: `${pathToCatImages}previews/${num}.jpg`,
-      current: `${pathToCatImages}previews/${num}.jpg`
+      current: `${pathToCatImages}${num}.jpg`
     }))
     
     const dogPets = randomDogs.map(num => ({
       type: 'dog',
       id: num,
       url: `${pathToDogImages}${num}.jpg`,
-      preview: `${pathToDogImages}${num}.jpg`,
+      preview: `${pathToDogImages}previews/${num}.jpg`,
       current: `${pathToDogImages}${num}.jpg`
     }))
     
