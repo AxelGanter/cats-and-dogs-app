@@ -2,72 +2,103 @@
     <div>
       <div class="gallery">
         <div 
-          v-for="img in images" 
-          :key="img" 
+          v-for="pet in pets" 
+          :key="pet.id" 
           class="img-container"
-          @click="handleClick(img)"
+          @click="handleClick(pet)"
         >
-          <img :src="img" alt="Hund oder Katze" />
+          <img :src="pet.current" alt="Hund oder Katze" />
         </div>
       </div>
     </div>
   </template>
   
   <script setup>
-import { ref, watch } from 'vue'
-const emit = defineEmits(['update-dog-counter'])
-
-function getUniqueRandomNumbers(count, max) {
-  const numbers = Array.from({ length: max }, (_, i) => i + 1)
-  return numbers.sort(() => Math.random() - 0.5).slice(0, count)
-}
-
-function generateGallery() {
-  const countDogs = 1
-  const countCats = 15
-  const randomDogs = getUniqueRandomNumbers(countDogs, 10000)
-  const randomCats = getUniqueRandomNumbers(countCats, 10000)
-  const pathToCatImages = '/PetImages/Cat/'
-  const pathToDogImages = '/PetImages/Dog/'
-  const catImages = randomCats.map(num => `${pathToCatImages}${num}.jpg`)
-  const dogImages = randomDogs.map(num => `${pathToDogImages}${num}.jpg`)
-  const allImages = [...catImages, ...dogImages]
-  return allImages.sort(() => Math.random() - 0.5).slice(0, 16)
-}
-
-const images = ref(generateGallery())
-
-function refreshGallery() {
-  images.value = generateGallery()
-}
-
-function removeImage(img) {
-  images.value = images.value.filter(i => i !== img)
-}
-
-const dogCounter = ref(0)
-
-watch(dogCounter, newVal => {
-  emit('update-dog-counter', newVal)
-})
-
-function handleClick(img) {
-    console.log(img)
-  if (img.includes('/Dog/')) {
-    dogCounter.value++
-    refreshGallery()
-  } else if (img.includes('/Cat/')) {
-    removeImage(img)
+  import { ref, onMounted, watch } from 'vue'
+  const emit = defineEmits(['update-dog-counter'])
+  
+  function getUniqueRandomNumbers(count, max, exclude = []) {
+    const numbers = new Set();
+    while (numbers.size < count) {
+      const num = Math.floor(Math.random() * max) + 1;
+      if (!exclude.includes(num)) {
+        numbers.add(num);
+      }
+    }
+    return Array.from(numbers);
   }
-}
-</script>
-
+  
+  function generateGallery() {
+    const countDogs = 1
+    const countCats = 15
+    // Stelle sicher, dass die Hund-ID nicht in den Katzen-IDs vorkommt:
+    const randomDogs = getUniqueRandomNumbers(countDogs, 10000)
+    const randomCats = getUniqueRandomNumbers(countCats, 10000, randomDogs)
+    
+    const pathToCatImages = '/PetImages/Cat/'
+    const pathToDogImages = '/PetImages/Dog/'
+    
+    const catPets = randomCats.map(num => ({
+      type: 'cat',
+      id: num,
+      url: `${pathToCatImages}${num}.jpg`,
+      preview: `${pathToCatImages}previews/${num}.jpg`,
+      current: `${pathToCatImages}previews/${num}.jpg`
+    }))
+    
+    const dogPets = randomDogs.map(num => ({
+      type: 'dog',
+      id: num,
+      url: `${pathToDogImages}${num}.jpg`,
+      preview: `${pathToDogImages}${num}.jpg`,
+      current: `${pathToDogImages}${num}.jpg`
+    }))
+    
+    const pets = [...catPets, ...dogPets]
+    return pets.sort(() => Math.random() - 0.5)
+  }
+  
+  const pets = ref(generateGallery())
+  const dogCounter = ref(0)
+  
+  watch(dogCounter, newVal => {
+    emit('update-dog-counter', newVal)
+  })
+  
+  onMounted(() => {
+    // Für Katzen: Wechsel von Preview zu Vollbild nach 1500ms
+    pets.value.forEach(pet => {
+      if (pet.type === 'cat') {
+        setTimeout(() => {
+          pet.current = pet.url
+        }, 1500)
+      }
+    })
+  })
+  
+  function refreshGallery() {
+    pets.value = generateGallery()
+    // Stelle sicher, dass der Wechsel auch für die neuen Katzen erfolgt:
+    pets.value.forEach(pet => {
+      if (pet.type === 'cat') {
+        setTimeout(() => {
+          pet.current = pet.url
+        }, 1500)
+      }
+    })
+  }
+  
+  function handleClick(pet) {
+    if (pet.type === 'dog') {
+      dogCounter.value++
+      refreshGallery()
+    } else if (pet.type === 'cat') {
+      pets.value = pets.value.filter(p => p.id !== pet.id)
+    }
+  }
+  </script>
   
   <style scoped>
-  .counter {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-  }
   .gallery {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
