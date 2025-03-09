@@ -1,8 +1,8 @@
 <template>
     <div class="gallery">
-      <div v-for="img in images" :key="img" class="img-container">
-        <img :src="img" alt="Hund oder Katze" />
-      </div>
+        <div v-for="img in images" :key="img" class="img-container">
+            <img :src="img" alt="Hund oder Katze" />
+        </div>
     </div>
   </template>
   
@@ -25,18 +25,24 @@
   )
   </script>
   
-  <style scoped>
-  .gallery {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  .img-container {
-    width: 25%;
-    padding: 5px;
-  }
-  .img-container img {
-    width: 100%;
-    height: auto;
-  }
-  </style>
-  
+<style scoped>
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+}
+.img-container {
+  position: relative;
+  width: 100%;
+  padding-top: 100%; /* Erzeugt ein Quadrat */
+  overflow: hidden;
+}
+.img-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Zoomt das Bild so, dass es den Container füllt */
+}
+</style>
