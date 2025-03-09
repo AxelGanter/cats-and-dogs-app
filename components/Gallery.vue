@@ -62,7 +62,7 @@ function handleClick(pet) {
     startTime.value = Date.now()
     refreshGallery()
   } else if (pet.type === 'cat') {
-    pet.img = '/PetImages/no_dog.jpg'
+    pet.img = 'https://cdn.axelganter.de/PetImages/no_dog.jpg'
   }
 }
 </script>
