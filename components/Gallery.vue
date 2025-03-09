@@ -7,13 +7,23 @@
           class="img-container"
           @click="handleClick(pet)"
         >
-          <img :src="pet.current" alt="Hund oder Katze" />
+          
+            <img 
+            :src="pet.img" 
+            alt="Hund oder Katze" 
+            @mouseover="pet.img = pet.url"
+            />
+
+          <label v-if="pet.type === 'dog'" class="dog-label">🐶</label>
+          <label v-if="pet.type === 'cat'" class="cat-label">🐱</label>
+            <label>{{ pet.id }}</label>
         </div>
       </div>
     </div>
   </template>
   
   <script setup>
+
   import { ref, onMounted, watch } from 'vue'
   const emit = defineEmits(['update-dog-counter'])
   
@@ -40,63 +50,59 @@
     
     const catPets = randomCats.map(num => ({
       type: 'cat',
-      id: num,
+      id: 'cat'+num,
       url: `${pathToCatImages}${num}.jpg`,
-      preview: `${pathToCatImages}previews/${num}.jpg`,
-      current: `${pathToCatImages}${num}.jpg`
+      img: `${pathToCatImages}previews/${num}.jpg`,
+      
     }))
     
     const dogPets = randomDogs.map(num => ({
       type: 'dog',
-      id: num,
+      id: 'dog'+num,
       url: `${pathToDogImages}${num}.jpg`,
-      preview: `${pathToDogImages}previews/${num}.jpg`,
-      current: `${pathToDogImages}${num}.jpg`
+      img: `${pathToDogImages}previews/${num}.jpg`,
+      
     }))
     
     const pets = [...catPets, ...dogPets]
-    return pets.sort(() => Math.random() - 0.5)
+    const petsRandom = pets.sort(() => Math.random() - 0.5)
+
+    console.log(pets)
+    
+    return petsRandom
   }
   
-  const pets = ref(generateGallery())
+  const pets = ref(generateGallery())  
   const dogCounter = ref(0)
   
   watch(dogCounter, newVal => {
     emit('update-dog-counter', newVal)
   })
-  
-  onMounted(() => {
-    // Für Katzen: Wechsel von Preview zu Vollbild nach 1500ms
-    pets.value.forEach(pet => {
-      if (pet.type === 'cat') {
-        setTimeout(() => {
-          pet.current = pet.url
-        }, 1500)
-      }
-    })
-  })
-  
+    
   function refreshGallery() {
+    console.log('refreshGallery')
     pets.value = generateGallery()
-    // Stelle sicher, dass der Wechsel auch für die neuen Katzen erfolgt:
-    pets.value.forEach(pet => {
-      if (pet.type === 'cat') {
-        setTimeout(() => {
-          pet.current = pet.url
-        }, 1500)
-      }
-    })
-  }
+     setTimeout(() => {
+       console.log('load images')
+       pets.value.forEach(pet => {
+         pet.img = pet.url;
+       });
+
+     }, 2000);
+}
   
   function handleClick(pet) {
+    console.log('Clicked on', pet)
     if (pet.type === 'dog') {
       dogCounter.value++
       refreshGallery()
     } else if (pet.type === 'cat') {
-      pets.value = pets.value.filter(p => p.id !== pet.id)
+      pet.img = '/PetImages/no_dog.jpg'
     }
   }
+
   </script>
+
   
   <style scoped>
   .gallery {
@@ -107,17 +113,19 @@
   .img-container {
     position: relative;
     width: 100%;
-    padding-top: 100%;
+    padding-top: 90%;
     overflow: hidden;
     cursor: pointer;
   }
   .img-container img {
     position: absolute;
-    top: 0;
+    margin-top: 10px;
+    top: 20px;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 70%;
     object-fit: cover;
   }
+  
   </style>
   
