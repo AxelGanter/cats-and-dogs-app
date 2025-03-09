@@ -32,7 +32,7 @@
   const pets = ref(generateGallery().map(pet => ({
     ...pet,
     left: getRandom(0, 90),    // zufällige horizontale Position (in %)
-    top: getRandom(0, 90),     // zufällige vertikale Position (in %)
+    top: getRandom(0, 70),     // zufällige vertikale Position (in %)
     offsetX: getRandom(-50, 50), // horizontaler Bewegungs-Offset
     offsetY: getRandom(-50, 50), // vertikaler Bewegungs-Offset
     duration: getRandom(20, 40), // Animationsdauer in Sekunden
