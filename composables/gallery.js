@@ -23,8 +23,7 @@ export function generateGallery() {
       type: 'cat',
       id: 'cat'+num,
       url: `${pathToCatImages}${num}.jpg`,
-      img: `${pathToCatImages}previews/${num}.jpg`,
-      
+      img: `${pathToCatImages}previews/${num}.jpg`,  
     }))
     
     const dogPets = randomDogs.map(num => ({
