@@ -22,9 +22,6 @@
 
       </div>
     </div>
-    <div v-if="elapsedTime !== null" class="timer">
-      Zeit bis ein Hund gefunden wurde: {{ elapsedTime }} ms
-    </div>
   </div>
 </template>
 
@@ -32,15 +29,20 @@
 import { ref, onMounted, watch } from 'vue'
 import { generateGallery } from '../composables/gallery.js'
 
-const emit = defineEmits(['update-dog-counter'])
+const emit = defineEmits(['update-dog-counter', 'update-elapsedTime'])
 const pets = ref(generateGallery())  
 const dogCounter = ref(0)
 const startTime = ref(Date.now())
-const elapsedTime = ref(null)
+const elapsedTime = ref(0)
 const showLabel = ref(false)
+
 
 watch(dogCounter, newVal => {
   emit('update-dog-counter', newVal)
+})
+watch(elapsedTime, newVal => {
+  emit('update-elapsedTime', newVal)
+  console.log('Elapsed time:', newVal)
 })
 
 function refreshGallery() {
@@ -79,9 +81,12 @@ export default {
 
 <style scoped>
 .gallery {
+  width: 100%;
+  max-width: 85vh;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 5px;
+  overflow-y: auto;
 }
 .img-container {
   position: relative;
@@ -99,9 +104,6 @@ export default {
   height: 70%;
   object-fit: cover;
   border-radius: 10px;
-}
-.timer {
-  margin-top: 40px;  
 }
 .label-container {
   position: absolute;

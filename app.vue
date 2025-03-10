@@ -17,6 +17,6 @@ body {
   background-color: black;
   color: green;
   min-height: 100vh;
-  padding: 20px;
+  padding-left: 25px;
 }
 </style>

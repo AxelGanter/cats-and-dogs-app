@@ -1,15 +1,21 @@
 <template>
   <div>
-    <h1>Auf den Hund gekommen</h1>
-    <label>
-      <input type="checkbox" v-model="showGallery2" />
-      Show Gallery 2
-    </label>
+    <div class="game-container">
+      <h1>Auf den Hund gekommen</h1>
+      <label>
+        <input type="checkbox" v-model="showGallery2" />
+        Show Gallery 2
+      </label>
 
-    <Gallery v-if="!showGallery2" @update-dog-counter="dogCounter = $event" />
-    <Gallery2 v-else @update-dog-counter="dogCounter = $event" />    
+      <Gallery v-if="!showGallery2" @update-dog-counter="dogCounter = $event" @update-elapsedTime="elapsedTime = $event" />
+      <Gallery2 v-else @update-dog-counter="dogCounter = $event" @update-elapsedTime="elapsedTime = $event" />    
 
-    <div class="counter">Hunde gefunden: {{ dogCounter }} </div>
+      <div class="counter">Hunde gefunden: {{ dogCounter }} </div>
+      <div v-if="elapsedTime !== null" class="timer">
+        Zeit bis ein Hund gefunden wurde: {{ (elapsedTime / 1000).toFixed(3) }} s
+      </div>
+
+    </div>
   </div>
 </template>
 
@@ -20,10 +26,24 @@ import Gallery2 from '~/components/Gallery2.vue'
 
 const showGallery2 = ref(false)
 const dogCounter = ref(0)
+const elapsedTime = ref(null)
 </script>
 
 <style scoped>
-.counter {
-  margin-top: 40px;
+
+.game-container {
+  width: 95%;
+  max-height: 100vh;
+  gap: 5px;
+  overflow-y: auto;
 }
+
+.counter {
+  margin-top: 35px;
+}
+
+.timer {
+  margin-top: 40px;  
+}
+
 </style>
