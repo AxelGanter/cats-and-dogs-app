@@ -9,9 +9,19 @@ function getUniqueRandomNumbers(count, max, exclude = []) {
     return Array.from(numbers);
   }
 
-export function generateGallery() {
+export function generateGallery(isSmartphone) {
+    
+    console.log('generateGallery')
+
     const countDogs = 1
-    const countCats = 15
+    var countCats = -1
+    if (isSmartphone) {
+      console.log('Gallery: for Smartphone')
+      countCats = 14
+    }else{
+      console.log('Gallery: for Desktop')
+      countCats = 15
+    }
     // Stelle sicher, dass die Hund-ID nicht in den Katzen-IDs vorkommt:
     const randomDogs = getUniqueRandomNumbers(countDogs, 10000)
     const randomCats = getUniqueRandomNumbers(countCats, 10000, randomDogs)

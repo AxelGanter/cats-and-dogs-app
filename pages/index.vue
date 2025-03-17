@@ -87,6 +87,7 @@ const elapsedTime = ref(null)
 }
 
 .timer {
+  margin-left: 25px;
   margin-top: 40px;  
 }
 

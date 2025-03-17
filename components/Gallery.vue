@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="gallery">
+    <div class="gallery" :class="{ 'smartphone-mode': isSmartphone }">
       <div 
         v-for="pet in pets" 
         :key="pet.id" 
@@ -34,11 +34,19 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue'
+import { ref, watch } from 'vue'
 import { generateGallery } from '../composables/gallery.js'
 
+const { isSmartphone } = useSmartphone()
+
 const emit = defineEmits(['update-dog-counter', 'update-elapsedTime'])
+
 const pets = ref(generateGallery())  
+
+watchEffect(() => {
+  pets.value = generateGallery(isSmartphone.value)
+})
+
 const pet = reactive({
   isHovered: false
 })
@@ -95,24 +103,38 @@ export default {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 5px;
-  width: min(80vw, 80vh);
+  width: min(90vw, 90vh);
   height: min(80vw, 80vh);  
-  max-width: 80vh;
-  max-height: 100vh;
+  max-width: 99vh;
+  max-height: 80vh;
 }
+
+.smartphone-mode {
+  grid-template-columns: repeat(3, 1fr);
+  width: min(99vw, 99vh);
+  min-height: 80vh;
+  max-height: 80vh;
+  gap: 2px;
+}
+
 .img-container {
   display: flex;
   position: relative;
   width: 99%;
   height: 99%;
-  max-height: 20vh;
-  max-width: 20vh;
+  max-height: 25vh;
+  max-width: 25vh;
   overflow: hidden;
   cursor: pointer;
   justify-content: center;
   align-items: center;
   aspect-ratio: 1 / 1;
   border-radius: 10px;
+}
+
+.smartphone-mode .img-container {
+  border: 1px solid black;
+  aspect-ratio: 1 / 2;
 }
 
 
@@ -160,16 +182,13 @@ export default {
   width: 100%; 
   height: 100%;
 }
+.isHovered {
+    width: auto; 
+    height: auto;
+}
 
 @media (hover: none) {
    .notHovered {
-    width: auto; 
-    height: auto;
-  }
-}
-
-@media (hover: hover) {
-  .isHovered {
     width: auto; 
     height: auto;
   }
