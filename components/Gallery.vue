@@ -95,6 +95,8 @@ export default {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 5px;
+  width: min(80vw, 80vh);
+  height: min(80vw, 80vh);  
   max-width: 80vh;
   max-height: 100vh;
 }
