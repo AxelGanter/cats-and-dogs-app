@@ -41,10 +41,12 @@ const { isSmartphone } = useSmartphone()
 
 const emit = defineEmits(['update-dog-counter', 'update-elapsedTime'])
 
-const pets = ref(generateGallery())  
+const pets = ref(generateGallery(isSmartphone.value))  
 
 watchEffect(() => {
-  pets.value = generateGallery(isSmartphone.value)
+  if (document.readyState === 'complete') {
+    pets.value = generateGallery(isSmartphone.value)
+  }  
 })
 
 const pet = reactive({
@@ -66,7 +68,7 @@ watch(elapsedTime, newVal => {
 
 function refreshGallery() {
   console.log('refreshGallery')
-  pets.value = generateGallery()
+  pets.value = generateGallery(isSmartphone.value)
   setTimeout(() => {
     console.log('load images')
     pets.value.forEach(pet => {
