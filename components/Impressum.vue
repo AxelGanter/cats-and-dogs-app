@@ -17,6 +17,7 @@
 <style scoped>
     .impressum {
         margin-top: 150px;
+        margin-left: 25px;
         font-size: medium;
         
     }

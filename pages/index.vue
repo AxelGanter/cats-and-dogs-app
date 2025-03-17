@@ -82,6 +82,7 @@ const elapsedTime = ref(null)
 }
 
 .counter {
+  margin-left: 25px;
   margin-top: 35px;
 }
 

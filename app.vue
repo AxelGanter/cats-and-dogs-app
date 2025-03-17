@@ -1,7 +1,10 @@
 <template>
   
   <div class="app-container">
-    <img class="logo" src="~/public/findthedog_logo.png" alt="Logo" @click="hideLogo" v-show="isLogoVisible" />
+    <div class="logo-container">
+      <img class="logo" src="~/public/findthedog_logo.png" alt="Logo" @click="hideLogo" v-show="isLogoVisible" />
+    </div>
+    
     <NuxtPage />
     <SpeedInsights />
   </div>
@@ -27,21 +30,29 @@ body {
   background-color: burlywood ;
 }
 
+.logo-container{
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 98vh;
+  width: 98%;
+}
+
 .logo{
   /* background-color: burlywood; */
   position: absolute;
-  width: 100%;
+  max-height: 100%;
   display: block;
   margin-left: auto;
   margin-right: auto;
-  margin: 0;
-  padding: 0 ;
   z-index: 2;
 }
 
 .app-container {
   color: #291701;
   min-height: 100vh;
-  padding-left: 25px;
 }
 </style>
