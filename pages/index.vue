@@ -15,6 +15,17 @@
         Zeit bis ein Hund gefunden wurde: {{ (elapsedTime / 1000).toFixed(3) }} s
       </div>
 
+      <div class="instructions">
+        Hilf mit und markiere mit dem X die Bilder bei denen <br />
+        - kein Tier zu sehen ist<br />
+        - das Bild abgeschnitten zu sein scheint<br />
+        - wenn das Tier nur eine Zeichnung ist<br />
+        - die schlecht zu erkenen sind oder das Bild schlecht ist<br />
+        - bei denen Gesichter von Menschen zu erkennen sind<br />        
+        - Tiere hinter Gittern oder in Käfigen sind<br />
+        - bei denen die Tiere in einer unglücklichen Situation zu sein scheinen<br />
+        - die Text enthalten.<br />
+      </div>
     </div>
   </div>
 </template>
@@ -36,6 +47,14 @@ const elapsedTime = ref(null)
   max-height: 100vh;
   gap: 5px;
   overflow-y: auto;
+  
+}
+.game-container h1{
+  text-align: center;
+}
+
+.instructions {
+  margin-top: 20px;
 }
 
 .counter {

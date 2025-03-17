@@ -13,12 +13,14 @@ import { SpeedInsights } from "@vercel/speed-insights/nuxt"
 <style>
 body {
   margin: 0;
-  font-family: monospace;
+  /* font-family: monospace; */
+  font-family: Verdana, sans-serif;
   font-size: 1.5rem;
+
 }
 .app-container {
-  background-color: black;
-  color: green;
+  background-color: #7aac71;
+  color: #13300e;
   min-height: 100vh;
   padding-left: 25px;
 }
