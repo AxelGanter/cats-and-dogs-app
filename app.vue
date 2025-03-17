@@ -2,7 +2,7 @@
   
   <div class="app-container">
     <div class="logo-container">
-      <img class="logo" src="~/public/findthedog_logo.png" alt="Logo" @click="hideLogo" v-show="isLogoVisible" />
+      <img class="logo" src="~/public/findthedog_logo.png" alt="Logo" @click="hideLogo" />
     </div>
     
     <NuxtPage />
@@ -12,10 +12,10 @@
 
 <script setup>
 import { SpeedInsights } from "@vercel/speed-insights/nuxt"
-const isLogoVisible = ref(true)
 
 const hideLogo = () => {
-  isLogoVisible.value = false
+  const logo = document.querySelector('.logo-container')
+  logo.style.display = 'none'
 }
 
 </script>
