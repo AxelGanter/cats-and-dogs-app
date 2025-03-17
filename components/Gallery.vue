@@ -95,14 +95,16 @@ export default {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 5px;
-  overflow-y: auto;
-  background-color: #7aac71;
+  max-width: 80vh;
+  max-height: 100vh;
 }
 .img-container {
   display: flex;
   position: relative;
   width: 99%;
   height: 99%;
+  max-height: 20vh;
+  max-width: 20vh;
   overflow: hidden;
   cursor: pointer;
   justify-content: center;
@@ -121,7 +123,7 @@ export default {
   bottom: 0;
   background-size: cover;
   background-position: center;
-  background: rgba(122,172,113, 0.6);
+  background: rgba(50,50,50, 0.6);
   z-index: -1;
 }
 

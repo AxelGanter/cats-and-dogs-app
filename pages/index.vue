@@ -1,14 +1,20 @@
 <template>
   <div>
     <div class="game-container">
-      <h1>Auf den Hund gekommen</h1>
+      <link rel="preconnect" href="https://fonts.gstatic.com">
+      <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap" rel="stylesheet">
       <label>
         <input type="checkbox" v-model="showGallery2" />
         Show Gallery 2
       </label>
+      <h1><img class="logo_small" src="~/public/findthedog_logo.png" /> Auf den Hund gekommen</h1>
 
-      <Gallery v-if="!showGallery2" @update-dog-counter="dogCounter = $event" @update-elapsedTime="elapsedTime = $event" />
-      <Gallery2 v-else @update-dog-counter="dogCounter = $event" @update-elapsedTime="elapsedTime = $event" />    
+      <div class="middle_gallery">
+          
+        <Gallery v-if="!showGallery2" @update-dog-counter="dogCounter = $event" @update-elapsedTime="elapsedTime = $event" />
+        <Gallery2 v-else @update-dog-counter="dogCounter = $event" @update-elapsedTime="elapsedTime = $event" />    
+
+      </div>
 
       <div class="counter">Hunde gefunden: {{ dogCounter }} </div>
       <div v-if="elapsedTime !== null" class="timer">
@@ -26,6 +32,8 @@
         - bei denen die Tiere in einer unglücklichen Situation zu sein scheinen<br />
         - die Text enthalten.<br />
       </div>
+      <Impressum />
+
     </div>
   </div>
 </template>
@@ -42,19 +50,35 @@ const elapsedTime = ref(null)
 
 <style scoped>
 
+.middle_gallery {
+  /* background-color: aquamarine; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px  ;
+}
+
+.logo_small {
+  width: 120px;
+  position: relative;
+  top: 30px;
+  
+} 
+
 .game-container {
-  width: 95%;
-  max-height: 100vh;
+  width: 100%;
   gap: 5px;
-  overflow-y: auto;
   
 }
 .game-container h1{
   text-align: center;
+  font-family: 'Rock Salt', cursive;
 }
 
 .instructions {
-  margin-top: 20px;
+  visibility: hidden;
+  margin-top: 150px;
+  font-size: 1.2rem;
 }
 
 .counter {
