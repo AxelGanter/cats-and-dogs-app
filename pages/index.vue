@@ -5,11 +5,11 @@
       <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap" rel="stylesheet">
       <label class="game-switch">
         <input type="checkbox" v-model="showGallery2" />
-        Show Gallery 2
+        {{ $t('show gallery') }}
       </label>
       <div class="lang">
-        <button class="btn_lang_de" @click="switchLang('de')">Deutsch</button>
-        <button class="btn_lang_en" @click="switchLang('en')">English</button>
+        <button aria-label="Change language to german" class="btn_lang_de" @click="switchLang('de')"></button>
+        <button aria-label="Change language to english" class="btn_lang_en" @click="switchLang('en')"></button>
       </div>
 
       <h1><img class="logo_small" src="~/public/findthedog_logo.png" /> {{ $t('title') }}</h1>
@@ -19,22 +19,19 @@
         <Gallery2 v-else @update-dog-counter="dogCounter = $event" @update-elapsedTime="elapsedTime = $event" />    
       </div>
 
-      <div class="counter">Hunde gefunden: <b>{{ dogCounter }}</b> </div>
+      <div class="counter">{{ $t('dogs found')}} <b>{{ dogCounter }}</b> </div>
       <div v-if="elapsedTime !== null" class="timer">
-        <b>{{ (elapsedTime / 1000).toFixed(2) }}s</b> bis ein Hund gefunden wurde
+        <b>{{ (elapsedTime / 1000).toFixed(2) }}s</b> {{ $t('until a dog was found')}}
       </div>
 
       <div class="instructions">
-        Hilf mit und markiere mit dem X die Bilder bei denen <br />
-        - kein Tier zu sehen ist<br />
-        - das Bild abgeschnitten zu sein scheint<br />
-        - wenn das Tier nur eine Zeichnung ist<br />
-        - die schlecht zu erkenen sind oder das Bild schlecht ist<br />
-        - bei denen Gesichter von Menschen zu erkennen sind<br />        
-        - Tiere hinter Gittern oder in Käfigen sind<br />
-        - bei denen die Tiere in einer unglücklichen Situation zu sein scheinen<br />
-        - die Text enthalten.<br />
-      </div>
+        <h2>{{ $t('instructions') }}</h2>
+        <p v-for="(line, index) in $tm('criteria')" :key="index"> - {{ line }}</p>
+       
+      </div>      
+      <a href="https://github.com/AxelGanter/cats-and-dogs-app" target="_blank">
+        <img class="github_logo" src="~/public/github_logo_transparent.png" alt="github" />
+      </a>
       <Impressum />
     </div>
   </div>
@@ -58,7 +55,28 @@ const switchLang = (lang) => {
 };
 </script>
 
+
+
 <style scoped>
+
+.game-container {
+  background-color: transparent;
+}
+
+.logo_small {
+  width: 120px;
+  position: relative;
+  top: 30px;
+} 
+.github_logo{
+  position: relative;
+  top: 12px;
+  margin-left: 25px;
+  height: 50px;
+  border-width: 2px;
+  border-color: black;  
+}
+
 .game-switch {
   top: 0;
   margin-top: 0;
@@ -76,8 +94,17 @@ const switchLang = (lang) => {
   margin: 5px;
   padding: 5px;
   border-radius: 5px;
-  border: 1px solid black;
+  height: 40px;
+  width: 65px;
   background-color: white;
+  background-size: cover;
+  border-width: 0;
+}
+.btn_lang_de {
+  background: url("~/public/flag_de.jpg") no-repeat center center;
+}
+.btn_lang_en {
+  background: url("~/public/flag_en.jpg") no-repeat center center;
 }
 
 .middle_gallery {
@@ -86,12 +113,6 @@ const switchLang = (lang) => {
   align-items: center;
   margin-top: 20px;
 }
-
-.logo_small {
-  width: 120px;
-  position: relative;
-  top: 30px;
-} 
 
 .game-container {
   width: 100%;
@@ -105,6 +126,7 @@ const switchLang = (lang) => {
 
 .instructions {
   visibility: hidden;
+  margin-left: 25px;  
   margin-top: 150px;
   font-size: 1.2rem;
 }

@@ -1,3 +1,30 @@
+# findTheDog - game
+
+## images
+
+### ML Dataset
+Most cats and dogs are from the Microsoft Cats vs Dogs dataset on Kaggle.
+https://www.kaggle.com/datasets/shaunthesheep/microsoft-catsvsdogs-dataset
+For information see http://research.microsoft.com/en-us/projects/asirra/corpus.aspx
+Contact: jelson
+
+### Flags
+
+https://unsplash.com/de/fotos/eine-flagge-auf-einem-mast-vwHhC2NVBbA
+https://unsplash.com/de/@chris_robert
+
+
+https://unsplash.com/de/fotos/eine-flagge-auf-einem-mast-MGuriBmnCpc
+https://unsplash.com/de/@iamateapot
+
+### common commands
+
+```bash
+convert input.jpg -resize 800 -quality 85 output.jpg
+convert input.png -fuzz 10% -transparent white output.png
+```
+
+
 # Nuxt Minimal Starter
 
 Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
