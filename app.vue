@@ -45,6 +45,7 @@ body {
   /* background-color: burlywood; */
   position: absolute;
   max-height: 100%;
+  max-width: 100%;
   display: block;
   margin-left: auto;
   margin-right: auto;
