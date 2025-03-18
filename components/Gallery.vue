@@ -34,27 +34,29 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import { generateGallery } from '../composables/gallery.js'
 
 const { isSmartphone } = useSmartphone()
 
 const emit = defineEmits(['update-dog-counter', 'update-elapsedTime'])
 
-const pets = ref(generateGallery(isSmartphone.value))  
+const pets = ref([]);
 
-watchEffect(() => {
-  if (document.readyState === 'complete') {
-    pets.value = generateGallery(isSmartphone.value)
-  }  
-})
+onMounted(() => {
+  pets.value = generateGallery(isSmartphone.value);
+
+  watch(isSmartphone, (newValue) => {
+    pets.value = generateGallery(newValue);
+  });
+});
 
 const pet = reactive({
   isHovered: false
 })
 const dogCounter = ref(0)
 const startTime = ref(Date.now())
-const elapsedTime = ref(0)
+const elapsedTime = ref(null)
 const showLabel = ref(false)
 
 
