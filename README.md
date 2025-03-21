@@ -24,6 +24,10 @@ convert input.jpg -resize 800 -quality 85 output.jpg
 convert input.png -fuzz 10% -transparent white output.png
 ```
 
+### todos
+
+- favicon
+- hearth-shaped feedback button
 
 # Nuxt Minimal Starter
 

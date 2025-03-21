@@ -33,6 +33,7 @@
         <img class="github_logo" src="~/public/github_logo_transparent.png" alt="github" />
       </a>
       <Impressum />
+      <Counter />
     </div>
   </div>
 </template>
@@ -43,6 +44,7 @@ import { useI18n } from 'vue-i18n'
 import Impressum from '~/components/Impressum.vue'
 import Gallery from '~/components/Gallery.vue'
 import Gallery2 from '~/components/Gallery2.vue'
+import Counter from '~/components/Counter.vue'
 
 const { locale } = useI18n();
 const showGallery2 = ref(false)
